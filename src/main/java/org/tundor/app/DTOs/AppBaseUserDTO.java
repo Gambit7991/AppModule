@@ -1,23 +1,18 @@
 package org.tundor.app.DTOs;
 
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.tundor.app.DTOs.user_info.AppAddressDTO;
 import org.tundor.app.DTOs.user_info.AppAccountInfo;
-import org.tundor.app.DTOs.user_info.AppLoginInfo;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+@MappedSuperclass
 @EqualsAndHashCode
-@ToString
-public class AppBaseUserDTO {
-    private AppAddressDTO address;
+@ToString(includeFieldNames = false)
+public abstract class AppBaseUserDTO {
     private AppAccountInfo info;
-    private AppLoginInfo loginInformation;
-
 
 }
