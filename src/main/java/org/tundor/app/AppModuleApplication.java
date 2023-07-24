@@ -7,19 +7,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.tundor.app.DTOs.user_info.AppAccountInfo;
-import org.tundor.app.DTOs.user_info.AppAddressDTO;
-import org.tundor.app.DTOs.user_info.AppLoginInfo;
 import org.tundor.app.DTOs.user_roles.AppAdminDTO;
 import org.tundor.app.DTOs.user_roles.AppStudentDTO;
 import org.tundor.app.DTOs.user_roles.AppTutorDTO;
+import org.tundor.app.flows.mapper_flow.app_mappers_flow.AdminMapperFlowApp;
+import org.tundor.app.flows.mapper_flow.app_mappers_flow.StudentMapperFlowApp;
+import org.tundor.app.flows.mapper_flow.app_mappers_flow.TutorMapperFlowApp;
+import org.tundor.app.flows.mapper_flow.user_mapper_flow.AdminMapper;
+import org.tundor.app.flows.mapper_flow.user_mapper_flow.StudentMapper;
+import org.tundor.app.flows.mapper_flow.user_mapper_flow.TutorMapper;
 import org.tundor.app.forms.SignUpForm;
-import org.tundor.app.mappers.data_mappers.AppDataAdminMapper;
-import org.tundor.app.mappers.data_mappers.AppDataStudentMapper;
-import org.tundor.app.mappers.data_mappers.AppDataTutorMapper;
-import org.tundor.app.mappers.form_mappers.info_mappers.AccountInfoFormMapper;
-import org.tundor.app.mappers.form_mappers.info_mappers.AddressFormMapper;
-import org.tundor.app.mappers.form_mappers.info_mappers.LoginFormMapper;
 import org.tundor.data.DTOs.user_roles.AdminDTO;
 import org.tundor.data.DTOs.user_roles.StudentDTO;
 import org.tundor.data.DTOs.user_roles.TutorDTO;
@@ -89,44 +86,30 @@ public class AppModuleApplication {
                 .userType("STUDENT")
                 .build();
 
-        AppAddressDTO addressDTO = AddressFormMapper.INSTANCE.toAppDTO(signUpForm);
-        AppLoginInfo loginInfo = LoginFormMapper.INSTANCE.toAppDTO(signUpForm);
-        AppAccountInfo accountInfo = AccountInfoFormMapper.INSTANCE.toAppDTO(signUpForm, addressDTO, loginInfo);
-        System.out.println(addressDTO);
-        System.out.println(loginInfo);
-        System.out.println(accountInfo);
-        AppAdminDTO appAdminDTO = AppAdminDTO.builder().info(accountInfo).build();
-        AppAccountInfo accountInfo1 = AccountInfoFormMapper.INSTANCE.toAppDTO(signUpForm1,
-                AddressFormMapper.INSTANCE.toAppDTO(signUpForm1),
-                LoginFormMapper.INSTANCE.toAppDTO(signUpForm1));
-        AppAccountInfo accountInfo2 = AccountInfoFormMapper.INSTANCE.toAppDTO(signUpForm2,
-                AddressFormMapper.INSTANCE.toAppDTO(signUpForm2),
-                LoginFormMapper.INSTANCE.toAppDTO(signUpForm2));
+        AdminMapperFlowApp adminMapperFlow = new AdminMapperFlowApp();
+        StudentMapperFlowApp studentMapperFlow = new StudentMapperFlowApp();
+        TutorMapperFlowApp tutorMapperFlow = new TutorMapperFlowApp();
 
-//        AppAdminDTO appAdminDTO = AppAdminFormMapper.INSTANCE
-//                .toAppDTO(AccountInfoFormMapper.INSTANCE.toAppDTO(signUpForm,
-//                        AddressFormMapper.INSTANCE.toAppDTO(signUpForm),
-//                        LoginFormMapper.INSTANCE.toAppDTO(signUpForm))
-//                );
+        AppAdminDTO appAdminDTO1 = adminMapperFlow.getAppDTO(signUpForm) ;
+        AppStudentDTO appStudentDTO1 = studentMapperFlow.getAppDTO(signUpForm1);
+        AppTutorDTO appTutorDTO1 = tutorMapperFlow.getAppDTO(signUpForm2);
 
+        System.out.println(appAdminDTO1);
+        System.out.println(appStudentDTO1);
+        System.out.println(appTutorDTO1);
 
-        AppTutorDTO appTutorDTO = AppTutorDTO.builder().info(accountInfo1).build();
+        AdminMapper adminMapper = new AdminMapper();
+        StudentMapper studentMapper = new StudentMapper();
+        TutorMapper tutorMapper = new TutorMapper();
 
-        AppStudentDTO appStudentDTO = AppStudentDTO.builder().info(accountInfo2).build();
-
-        System.out.println(appAdminDTO);
-        System.out.println(appTutorDTO);
-        System.out.println(appStudentDTO);
-
-        AdminDTO adminDTO = AppDataAdminMapper.INSTANCE.toDataDTO(appAdminDTO);
-        TutorDTO tutorDTO = AppDataTutorMapper.INSTANCE.toDataDTO(appTutorDTO);
-        StudentDTO studentDTO = AppDataStudentMapper.INSTANCE.toDataDTO(appStudentDTO);
-
-        System.out.println("next must be data objects ->>");
-        System.out.println(adminDTO);
-        System.out.println(tutorDTO);
-        System.out.println(studentDTO);
-
+        AdminDTO adminDTO1 = adminMapper.getDataDTO(appAdminDTO1) ;
+        StudentDTO studentDTO1 = studentMapper.getDataDTO(appStudentDTO1);
+        TutorDTO tutorDTO1 = tutorMapper.getDataDTO(appTutorDTO1);
+        TutorDTO tutorDTO2 = tutorMapper.getDataDTO(signUpForm);
+        System.out.println(adminDTO1);
+        System.out.println(studentDTO1);
+        System.out.println(tutorDTO1);
+        System.out.println(tutorDTO2);
     }
 
 

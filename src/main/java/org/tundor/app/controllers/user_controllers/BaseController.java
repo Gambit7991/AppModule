@@ -1,6 +1,7 @@
 package org.tundor.app.controllers.user_controllers;
 
 import org.springframework.web.bind.annotation.*;
+import org.tundor.app.forms.SignUpForm;
 import org.tundor.data.DTOs.BaseUserDTO;
 import org.tundor.manager.services.BaseService;
 
@@ -26,8 +27,9 @@ public abstract class BaseController <UserDTO extends BaseUserDTO, ID extends UU
     }
 
     @PostMapping("/create")
-    public /*Optional<UserDTO>*/void  save(@RequestBody String user) {
+    public /*Optional<UserDTO>*/void  save(@RequestBody SignUpForm user) {
         System.out.println("save requested body : " + user);
+
 //        return service.save(user);
     }
 
