@@ -9,15 +9,15 @@ import org.tundor.app.mappers.user_mappers.form_mappers.AppBaseMapper;
 import org.tundor.app.forms.SignUpForm;
 
 
-public abstract class AppBaseMapperFlow<User extends AppBaseUserDTO, Mapper extends AppBaseMapper<User>> implements AppMapperContract<User>{
+public abstract class AppBaseMapperFlow<User extends AppBaseUserDTO> {
 
-    private final Mapper mapper = getMapperInterface();
+    private final  AppBaseMapper<User> mapper = getMapper();
 
     /**
      * Provides Interface Mapper
      * @return AppBaseMapper form to app
      */
-    abstract Mapper getMapperInterface();
+    abstract  AppBaseMapper<User> getMapper();
 
     /**
      * Transfer data from form to the App layer DTO

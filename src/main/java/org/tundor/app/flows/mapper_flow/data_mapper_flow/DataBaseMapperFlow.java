@@ -5,33 +5,35 @@ import org.tundor.app.mappers.user_mappers.data_mappers.AppDataBaseMapper;
 import org.tundor.data.DTOs.BaseUserDTO;
 
 
-public abstract class DataBaseMapperFlow<DataUser extends BaseUserDTO, AppUser extends AppBaseUserDTO,
-        Mapper extends AppDataBaseMapper<DataUser, AppUser>> implements DataMapperContract<DataUser, AppUser>{
-
-    private final Mapper mapper = getMapperInterface();
+public abstract class DataBaseMapperFlow<DataUser extends BaseUserDTO, AppUser extends AppBaseUserDTO> {
 
     /**
-     * Provides Interface Mapper
-     *
-     * @return AppBaseMapper form to app
+     * Mapper to map {@link BaseUserDTO} and {@link AppBaseUserDTO}
      */
-    abstract Mapper getMapperInterface();
+    private final AppDataBaseMapper<DataUser, AppUser> mapper = getMapperInterface();
 
     /**
-     * Transfer data from Data layer DTO to the App layer DTO
+     * Provides required Mapper
      *
-     * @param dataDTO -> is a DTO from a Data layer
-     * @return AppUser -> extends AppBaseUserDTO class
+     * @return {@link AppDataBaseMapper}
+     */
+    abstract AppDataBaseMapper<DataUser, AppUser> getMapperInterface();
+
+    /**
+     * Transfers data from a {@link BaseUserDTO} object to an {@link AppBaseUserDTO} object.
+     *
+     * @param dataDTO The data object of type {@code DataUser} that extends {@link BaseUserDTO}.
+     * @return An {@link AppUser} object that extends {@link AppBaseUserDTO}.
      */
     public AppUser getAppDTO(DataUser dataDTO) {
         return mapper.toAppDTO(dataDTO);
     }
 
     /**
-     * Transfer data from App layer DTO to the Data layer DTO
+     * Transfer data from {@link AppBaseUserDTO} object  to a {@link BaseUserDTO}
      *
-     * @param appDTO -> is a DTO from an App layer
-     * @return DataUser -> extends BaseUserDTO class
+     * @param appDTO The data object of type {@code AppUser} that extends {@link AppBaseUserDTO}
+     * @return A {@link DataUser} object that extends {@link BaseUserDTO}.
      */
     public DataUser getDataDTO(AppUser appDTO) {
         return mapper.toDataDTO(appDTO);

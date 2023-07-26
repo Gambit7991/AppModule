@@ -5,7 +5,7 @@ import org.tundor.app.flows.mapper_flow.app_mappers_flow.StudentMapperFlowApp;
 import org.tundor.app.flows.mapper_flow.data_mapper_flow.StudentMapperFlowData;
 import org.tundor.data.DTOs.user_roles.StudentDTO;
 
-public class StudentMapper extends BaseMapper<StudentDTO, AppStudentDTO, StudentMapperFlowData, StudentMapperFlowApp> {
+public class StudentMapper extends BaseMapper<StudentDTO, AppStudentDTO> {
 
     @Override
     StudentMapperFlowData getDataMapper() {

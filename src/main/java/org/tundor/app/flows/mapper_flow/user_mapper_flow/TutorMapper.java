@@ -5,7 +5,7 @@ import org.tundor.app.flows.mapper_flow.app_mappers_flow.TutorMapperFlowApp;
 import org.tundor.app.flows.mapper_flow.data_mapper_flow.TutorMapperFlowData;
 import org.tundor.data.DTOs.user_roles.TutorDTO;
 
-public class TutorMapper extends BaseMapper<TutorDTO, AppTutorDTO, TutorMapperFlowData, TutorMapperFlowApp> {
+public class TutorMapper extends BaseMapper<TutorDTO, AppTutorDTO> {
 
     @Override
     TutorMapperFlowData getDataMapper() {

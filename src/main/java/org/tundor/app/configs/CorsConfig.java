@@ -1,4 +1,4 @@
-package org.tundor.app;
+package org.tundor.app.configs;
 
 
 import org.springframework.context.annotation.Configuration;
